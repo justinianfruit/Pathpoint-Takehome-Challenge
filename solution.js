@@ -1,19 +1,23 @@
 async function sortHighestScores(filePath, numScores) {
   const data = await import(filePath);
-  let outputData;
+  const parsedData = Object.entries(data.default);
+  let outputData = [];
 
   try {
+    if (numScores > parsedData.length) throw "numScores exceeds data length";
+
     let dataKeys = Object.keys(data.default);
-    let dataObjects = Object.values(data.default);
+
+    for (let i = 0; i < numScores; i++) {
+      //if (!JSON.parse(data.default[i])) throw "No valid JSON found";
+    }
 
     dataKeys.sort().reverse();
-    console.log(dataKeys);
-
-    if (numScores > dataKeys.length) throw "numScores exceeds data length";
+    dataKeys.forEach((key) => {});
   } catch (err) {
     console.log(err);
   }
   return;
 }
 
-sortHighestScores("./sample.json", 10);
+sortHighestScores("./sample.json", 3);
