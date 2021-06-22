@@ -24,7 +24,7 @@ async function sortHighestScores(filePath, numScores) {
     console.log(err);
   }
 
-  outputData.sort((a, b) => (a.score > b.score ? 1 : -1)).reverse();
+  outputData.sort((a, b) => (a.score < b.score ? 1 : -1));
   console.log(outputData);
   return;
 }
