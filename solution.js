@@ -1,18 +1,24 @@
 async function sortHighestScores(filePath, numScores) {
-  let fileReader = new FileReader();
-  fileReader.readAsText(filePath);
-  console.log(fileReader.result);
-  //console.log(data);
+  let data = await import(filePath).then((data) => data.default.data);
+  let parsedData = data.map((string) => string.split(": "));
+  parsedData = parsedData.map((arr) => [arr.shift(), arr.join(": ")]);
+
   let outputData = [];
 
-  // try {
-  //   if (numScores > data.length) throw "numScores exceeds data length";
+  try {
+    if (numScores > parsedData.length) throw "numScores exceeds data length";
 
-  //   for (let i = 0; i < numScores; i++) {}
-  // } catch (err) {
-  //   console.log(err);
-  // }
+    for (let i = 0; i < numScores; i++) {
+      try {
+        let parsedJson = JSON.parse(parsedData[i][1]);
+      } catch (err) {
+        throw "No valid JSON found";
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
   return;
 }
 
-sortHighestScores("./sample.txt", 3);
+sortHighestScores("./sample.js", 3);
