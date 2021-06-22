@@ -20,13 +20,19 @@ async function sortHighestScores(filePath, numScores) {
         throw "No valid JSON found";
       }
     }
+
+    const scores = [];
+    const filteredOutput = outputData.filter((obj) => {
+      const dupe = scores.includes(obj.score);
+      scores.push(obj.score);
+      return !dupe;
+    });
+
+    filteredOutput.sort((a, b) => (a.score < b.score ? 1 : -1));
+    console.log(filteredOutput);
   } catch (err) {
     console.log(err);
   }
-
-  outputData.sort((a, b) => (a.score < b.score ? 1 : -1));
-  console.log(outputData);
-  return;
 }
 
-sortHighestScores("./sample.js", 3);
+sortHighestScores("./sample.js", 5);
