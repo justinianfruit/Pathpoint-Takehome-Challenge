@@ -8,14 +8,18 @@ async function sortHighestScores(filePath, numScores) {
 
     let scores = [];
     for (let i = 0; i < numScores; i++) {
-      scores.push(parsedData[i][0]);
+      try {
+        JSON.parse(JSON.stringify(parsedData[i][1]));
+      } catch (err) {
+        throw "Invalid JSON format";
+      }
+      if (!parsedData[i][1].id) throw "No valid ID found on object";
+      outputData.push({ score: parsedData[i][0], id: "" });
     }
-    scores.sort().reverse();
-    console.log(scores);
   } catch (err) {
     console.log(err);
   }
   return;
 }
 
-sortHighestScores("./sample.json", 3);
+sortHighestScores("./sample.json", 5);
