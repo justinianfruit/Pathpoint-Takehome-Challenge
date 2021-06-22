@@ -1,6 +1,7 @@
 async function sortHighestScores(filePath, numScores) {
   const data = await import(filePath);
-  console.log(data);
+  let parsedDataKeys = Object.keys(data.default);
+  console.log(parsedDataKeys);
 }
 
 sortHighestScores("./sample.json", 3);
