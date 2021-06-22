@@ -11,6 +11,11 @@ async function sortHighestScores(filePath, numScores) {
     for (let i = 0; i < numScores; i++) {
       try {
         let parsedJson = JSON.parse(parsedData[i][1]);
+        if (!parsedJson.id) throw "No valid ID on object";
+        outputData.push({
+          score: parseInt(parsedData[i][0]),
+          id: parsedJson.id,
+        });
       } catch (err) {
         throw "No valid JSON found";
       }
@@ -18,6 +23,9 @@ async function sortHighestScores(filePath, numScores) {
   } catch (err) {
     console.log(err);
   }
+
+  outputData.sort((a, b) => (a.score > b.score ? 1 : -1)).reverse();
+  console.log(outputData);
   return;
 }
 
