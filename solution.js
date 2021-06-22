@@ -6,14 +6,12 @@ async function sortHighestScores(filePath, numScores) {
   try {
     if (numScores > parsedData.length) throw "numScores exceeds data length";
 
-    let dataKeys = Object.keys(data.default);
-
+    let scores = [];
     for (let i = 0; i < numScores; i++) {
-      //if (!JSON.parse(data.default[i])) throw "No valid JSON found";
+      scores.push(parsedData[i][0]);
     }
-
-    dataKeys.sort().reverse();
-    dataKeys.forEach((key) => {});
+    scores.sort().reverse();
+    console.log(scores);
   } catch (err) {
     console.log(err);
   }
