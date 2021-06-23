@@ -1,6 +1,13 @@
-async function sortHighestScores(filePath, numScores) {
-  let data = await import(filePath).then((data) => data.default.data);
-  let parsedData = data.map((string) => string.split(": "));
+const fs = require('fs');
+
+async function sortHighestScores() {
+  let filePath = process.argv[2];
+  let numScores = parseInt(process.argv[3]);
+
+  let data = fs.readFileSync(filePath, 'utf8');
+
+  let parsedData = data.split("\n");
+  parsedData = parsedData.map((string) => string.split(": "));
   parsedData = parsedData.map((arr) => [arr.shift(), arr.join(": ")]);
 
   let outputData = [];
@@ -29,7 +36,7 @@ async function sortHighestScores(filePath, numScores) {
     });
 
     filteredOutput.sort((a, b) => (a.score < b.score ? 1 : -1));
-    console.log(filteredOutput);
+    console.log(JSON.stringify(filteredOutput));
   } catch (err) {
     console.log(err);
   }
